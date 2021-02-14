@@ -22,6 +22,6 @@ resources:
   disk_size_gb: 10
 handlers:
 - url: /.*
-  script: app.js
+  static_dir: /
   http_headers: 
     Access-Control-Allow-Origin: "*"
