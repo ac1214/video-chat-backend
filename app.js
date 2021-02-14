@@ -4,13 +4,22 @@ require('./routes/index');
 const users = {};
 var app = express();
 var server = require('http').Server(app);
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin || whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    credentials: true
+};
+
 var io = require('socket.io')(server, {
-    cors: {
-        origin: "http://localhost:3000, https://front-end-dot-operating-land-304706.wm.r.appspot.com",
-        methods: ["GET", "POST"],
-        credentials: true
-    }
+    cors: corsOptions
 });
+
+const whitelist = ['http://localhost:3000', 'https://front-end-dot-operating-land-304706.wm.r.appspot.com'];
 
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -24,7 +33,7 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000, https://front-end-dot-operating-land-304706.wm.r.appspot.com'}));
+app.use(cors(corsOptions));
 
 io.on('connection', socket => {
     console.log('User connected');
