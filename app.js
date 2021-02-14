@@ -6,7 +6,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3000, https://front-end-dot-operating-land-304706.wm.r.appspot.com",
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -24,7 +24,7 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: 'http://localhost:3000, https://front-end-dot-operating-land-304706.wm.r.appspot.com'}));
 
 io.on('connection', socket => {
     if(!users[socket.id]){
