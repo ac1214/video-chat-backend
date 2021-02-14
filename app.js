@@ -19,7 +19,7 @@ var io = require('socket.io')(server, {
     cors: corsOptions
 });
 
-const whitelist = ['http://localhost:3000', 'https://front-end-dot-operating-land-304706.wm.r.appspot.com'];
+const whitelist = ['http://localhost:3000', 'https://front-end-dot-operating-land-304706.wm.r.appspot.com', 'https://calgaryhacks2021-g7.github.io'];
 
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
