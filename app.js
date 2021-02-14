@@ -53,6 +53,24 @@ io.on('connection', socket => {
     socket.on("acceptCall", (data) => {
         io.to(data.to).emit("callAccepted", data.signal);
     })
+
+    socket.on("updateEditor", (text, roomid) => {
+    })
+
+    socket.on("joinroom", (roomid) => {
+        socket.join(roomid);
+        io.to(roomid).emit("receivemessage", socket.id + "has joined the room");
+    })
+
+    socket.on("sendmessage", (roomid) => {
+        io.to(roomid).emit("receivemessage", msg);
+    })
+
+    socket.on("leaveroom", (roomid) => {
+        socket.leave(roomid);
+        io.to(roomid).emit("receivemessage", socket.id + "has left the room");
+    })
+
 });
 
 module.exports = {app: app, server: server};
