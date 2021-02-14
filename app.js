@@ -27,6 +27,7 @@ app.use(function(req, res, next){
 app.use(cors({credentials: true, origin: 'http://localhost:3000, https://front-end-dot-operating-land-304706.wm.r.appspot.com'}));
 
 io.on('connection', socket => {
+    console.log('User connected');
     if(!users[socket.id]){
         users[socket.id] = socket.id;
     }
@@ -42,11 +43,6 @@ io.on('connection', socket => {
 
     socket.on("acceptCall", (data) => {
         io.to(data.to).emit("callAccepted", data.signal);
-    })
-
-    socket.on('leaveroom', (roomid, username) => {
-        socket.leave(roomid)
-        io.to(roomid).emit('receivemessage', username + 'has left the room');
     })
 });
 
